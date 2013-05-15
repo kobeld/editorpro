@@ -9,6 +9,11 @@ import (
 
 func main() {
 
+	err := gopandoc.Check()
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	http.HandleFunc("/to_md", htmlToMarkdown)
 	http.HandleFunc("/to_html", markdownToHtml)
 
