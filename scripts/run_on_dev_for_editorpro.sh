@@ -18,4 +18,4 @@ echo $?
 
 echo "======= restarting editorpro ======="
 cd $APPROOT
-sudo $GOPATH/bin/editorpro
+sudo nohup $GOPATH/bin/editorpro >> ~/editorpro.log 2>&1 &
