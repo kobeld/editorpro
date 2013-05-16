@@ -2,6 +2,11 @@ export GOPATH=/home/ubuntu/gopkg
 export GOROOT=/usr/local/go
 APPROOT="$GOPATH/src/github.com/kobeld/editorpro/"
 
+echo "======= updating pandoc code ========"
+cd $GOPATH/src/github.com/kobeld/gopandoc
+git checkout master && git pull origin master
+if [[ $? != 0 ]] ; then exit 1; fi
+
 echo "======= updating editorpro code ========"
 cd $APPROOT
 git checkout master && git pull origin master

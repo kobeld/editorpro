@@ -9,11 +9,11 @@
 
 	<textarea id="rich-editor">Rich editor</textarea>
 
-	<p><button id="to-md-btn">Html to Markdown</button></p>
+	<p><button id="to-md-btn">Html to Markdown</button> <span>Click to convert Html to Markdown</span></p>
 
 	<textarea id="md-editor" style="width:100%; height: 150px;">Markdown editor</textarea>
 
-	<p><button id="to-html-btn">Markdown to Html</button></p>
+	<p><button id="to-html-btn">Markdown to Html</button> <span>Click to convert Markdown to Html</span></p>
 </body>
 </html>
 
@@ -23,6 +23,7 @@ $(function(){
 	CKEDITOR.replace( 'rich-editor' );
 
 	$("#to-md-btn").click(function(){
+		$(this).attr("disabled", true);
 		var editor_data = CKEDITOR.instances["rich-editor"].getData();
 
 		$.post("/to_md", {
@@ -30,13 +31,18 @@ $(function(){
 		}).done(function(data){
 
 			$("#md-editor").val(data);
+			$("#to-md-btn").attr("disabled", false);
 
 		}).fail(function(){
+
 			alert("Internal Error!")
+			$("#to-md-btn").attr("disabled", false);
+
 		});
 	});
 
 	$("#to-html-btn").click(function(){
+		$(this).attr("disabled", true);
 		var editor_data = $("#md-editor").val();
 
 		$.post("/to_html", {
@@ -44,9 +50,11 @@ $(function(){
 		}).done(function(data){
 
 			CKEDITOR.instances["rich-editor"].setData(data)
+			$("#to-html-btn").attr("disabled", false);
 
 		}).fail(function(){
 			alert("Internal Error!")
+			$("#to-html-btn").attr("disabled", false);
 		});
 	});
 });
